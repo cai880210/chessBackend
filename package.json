@@ -8,5 +8,8 @@
   },
   "engines": {
     "node": "12.16.1"
+  },
+  "scripts": {
+    "install": "echo here"
   }
 }
