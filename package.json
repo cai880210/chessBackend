@@ -4,12 +4,13 @@
   "description": "Riley Holterhus Chess",
   "main": "testFile.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "node-gyp": "^8.0.0"
   },
   "engines": {
     "node": "12.16.1"
   },
   "scripts": {
-    "install": "echo here"
+    "install": "cd subfolder; node-gyp configure; node-gyp build"
   }
 }
