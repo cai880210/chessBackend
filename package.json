@@ -12,7 +12,7 @@
     "npm": "6.13.4"
   },
   "scripts": {
-    "heroku-cleanup": "node-gyp configure; node-gyp build "
+    "heroku-cleanup": "node-gyp configure;"
   },
   "gypfile": true
 }
