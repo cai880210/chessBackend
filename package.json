@@ -11,6 +11,6 @@
     "npm": "6.13.4"
   },
   "scripts": {
-    "install": "node-gyp configure; node-gyp build "
+    "heroku-postbuild": "node-gyp configure; node-gyp build "
   }
 }
