@@ -11,6 +11,6 @@
     "node": "12.16.1"
   },
   "scripts": {
-    "install": "cd subfolder; node-gyp configure; node-gyp build"
+    "install": "g++ --version"
   }
 }
