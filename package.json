@@ -11,6 +11,6 @@
     "node": "12.16.1"
   },
   "scripts": {
-    "install": "g++ --version"
+    "install": "python --version"
   }
 }
