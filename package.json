@@ -5,14 +5,11 @@
   "main": "testFile.js",
   "dependencies": {
     "express": "^4.17.1",
+    "node-addon-api": "^3.1.0",
     "node-gyp": "^8.0.0"
   },
   "engines": {
     "node": "12.16.1",
     "npm": "6.13.4"
-  },
-  "scripts": {
-    "heroku-cleanup": "node-gyp configure;"
-  },
-  "gypfile": true
+  }
 }
