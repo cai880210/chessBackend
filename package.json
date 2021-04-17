@@ -13,5 +13,6 @@
   },
   "scripts": {
     "heroku-cleanup": "node-gyp configure; node-gyp build "
-  }
+  },
+  "gypfile": true
 }
