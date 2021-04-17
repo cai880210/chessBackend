@@ -26,7 +26,10 @@ app.use(function (req, res, next) {
 });
 
 
-const port = 8000;
+var port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
 app.listen(port, () => {  console.log('We are live on ' + port);})  ;
 
 app.post('/getMove', function (req, res) {
@@ -37,4 +40,8 @@ app.post('/getMove', function (req, res) {
         score: '200',
     })
   })
+
+  app.get('/',function(req,res) {
+    res.send('The app is running now')
+});
 
