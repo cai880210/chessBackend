@@ -11,8 +11,5 @@
   "engines": {
     "node": "12.16.1",
     "npm": "6.13.4"
-  },
-  "scripts": {
-    "install": "node-gyp configure; node-gyp build"
   }
 }
