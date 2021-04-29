@@ -1,0 +1,1 @@
+cmd_Release/obj.target/rileyChess.node := g++ -o Release/obj.target/rileyChess.node -shared -pthread -rdynamic -m64  -Wl,-soname=rileyChess.node -Wl,--start-group Release/obj.target/rileyChess/rileyChess.o Release/obj.target/rileyChess/magicmoves.o Release/obj.target/rileyChess/main.o -Wl,--end-group -lnode

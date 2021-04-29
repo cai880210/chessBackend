@@ -1,5 +1,4 @@
-// var addon = require('bindings')('rileyChess.node')
-var addon = require('./custom/rileyChess.node')
+var addon = require('./build/Release/rileyChess.node')
 const express = require('express');
 var bodyParser = require('body-parser')
 
