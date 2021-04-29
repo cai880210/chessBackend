@@ -42,6 +42,6 @@ app.post('/getMove', function (req, res) {
   })
 
   app.get('/',function(req,res) {
-    res.send('Making some changes 2021-04-29')
+    res.send('Making some changes LOL TESTING')
 });
 
