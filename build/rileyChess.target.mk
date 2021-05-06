@@ -44,7 +44,7 @@ INCS_Debug := \
 	-I/usr/include/nodejs/deps/uv/include \
 	-I/usr/include/nodejs/deps/zlib \
 	-I/usr/include/nodejs/deps/v8/include \
-	-I/mnt/c/Users/Riley/OneDrive/Documents/Projects/Chess/nodeChessBackendLinux/node_modules/node-addon-api
+	-I/mnt/c/Users/Riley/OneDrive/Documents/Projects/Chess/testStuff/node_modules/node-addon-api
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=rileyChess' \
@@ -85,7 +85,7 @@ INCS_Release := \
 	-I/usr/include/nodejs/deps/uv/include \
 	-I/usr/include/nodejs/deps/zlib \
 	-I/usr/include/nodejs/deps/v8/include \
-	-I/mnt/c/Users/Riley/OneDrive/Documents/Projects/Chess/nodeChessBackendLinux/node_modules/node-addon-api
+	-I/mnt/c/Users/Riley/OneDrive/Documents/Projects/Chess/testStuff/node_modules/node-addon-api
 
 OBJS := \
 	$(obj).target/$(TARGET)/rileyChess.o \
