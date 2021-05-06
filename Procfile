@@ -1,1 +1,1 @@
-web: node testFile2.js
+web: node testFile.js
