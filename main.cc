@@ -462,92 +462,94 @@ std::pair<int, Move> Board::miniMax(int depth, bool isMaximizing, int alpha, int
 
 std::string getNextMove(std::string boardRepresentation) {
 	Board b(boardRepresentation);
-	std::cout << "Current board score: " << std::endl;
-	std::cout << b.evaluate() << std::endl;
+	// std::cout << "Current board score: " << std::endl;
+	// std::cout << b.evaluate() << std::endl;
 
 
-	std::cout << "Current Board before making new move:"  << std::endl;
-	for(int row = 7; row >= 0; row--) {
-		for(int col = 0; col <= 7; col++) {
-			bitboard cur_bitboard = (1ULL << ((row * 8) + col));
-			bool empty = true;
-			for(int side = 0; side <= 1; ++side) {
-				for(int type = 0; type <= 5; ++type) {
-					if(b.bitboards[side][type] & cur_bitboard) {
-						if(side == 0) {
-							if(type == 0) std::cout << "P" << " ";
-							else if(type == 1) std::cout << "C" << " ";
-							else if(type == 2) std::cout << "H" << " ";
-							else if(type == 3) std::cout << "B" << " ";
-							else if(type == 4) std::cout << "Q" << " ";
-							else if(type == 5) std::cout << "K" << " ";
-						} else {
-							if(type == 0) std::cout << "O" << " ";
-							else if(type == 1) std::cout << "R" << " ";
-							else if(type == 2) std::cout << "L" << " ";
-							else if(type == 3) std::cout << "D" << " ";
-							else if(type == 4) std::cout << "W" << " ";
-							else if(type == 5) std::cout << "I" << " ";
-						}
-						empty = false;
-						break;
-					}
-				}
-			}
-			if(empty) std::cout << "_ ";
-		}
-		std::cout << std::endl;
-	}
-	std::cout << std::endl;
+	// std::cout << "Current Board before making new move:"  << std::endl;
+	// for(int row = 7; row >= 0; row--) {
+	// 	for(int col = 0; col <= 7; col++) {
+	// 		bitboard cur_bitboard = (1ULL << ((row * 8) + col));
+	// 		bool empty = true;
+	// 		for(int side = 0; side <= 1; ++side) {
+	// 			for(int type = 0; type <= 5; ++type) {
+	// 				if(b.bitboards[side][type] & cur_bitboard) {
+	// 					if(side == 0) {
+	// 						if(type == 0) std::cout << "P" << " ";
+	// 						else if(type == 1) std::cout << "C" << " ";
+	// 						else if(type == 2) std::cout << "H" << " ";
+	// 						else if(type == 3) std::cout << "B" << " ";
+	// 						else if(type == 4) std::cout << "Q" << " ";
+	// 						else if(type == 5) std::cout << "K" << " ";
+	// 					} else {
+	// 						if(type == 0) std::cout << "O" << " ";
+	// 						else if(type == 1) std::cout << "R" << " ";
+	// 						else if(type == 2) std::cout << "L" << " ";
+	// 						else if(type == 3) std::cout << "D" << " ";
+	// 						else if(type == 4) std::cout << "W" << " ";
+	// 						else if(type == 5) std::cout << "I" << " ";
+	// 					}
+	// 					empty = false;
+	// 					break;
+	// 				}
+	// 			}
+	// 		}
+	// 		if(empty) std::cout << "_ ";
+	// 	}
+	// 	std::cout << std::endl;
+	// }
+	// std::cout << std::endl;
 
 	std::pair<int, Move> pair = b.miniMax(5, b.SideToPlay == White, INT_MIN, INT_MAX);
-	std::cout << "score of best move " << pair.first << std::endl;
+	// std::cout << "score of best move " << pair.first << std::endl;
 	Move move = pair.second;
 
 	std::vector<std::string> types = {"Pawn", "Castle", "Knight", "Bishop", "Queen", "King", "None"};
 	int from    = ((move & 0b000000000000111111));
 	int to      = ((move & 0b000000111111000000) >> 6);
 	int type    = ((move & 0b000111000000000000) >> 12);
-	std::cout << from << " " << to << " " << types[type] << std::endl;
+	// std::cout << from << " " << to << " " << types[type] << std::endl;
 
 	b.MakeMove(move);
 
-	std::cout << "board after making move" << std::endl;
+	// std::cout << "board after making move" << std::endl;
 
-	for(int row = 7; row >= 0; row--) {
-		for(int col = 0; col <= 7; col++) {
-			bitboard cur_bitboard = (1ULL << ((row * 8) + col));
-			bool empty = true;
-			for(int side = 0; side <= 1; ++side) {
-				for(int type = 0; type <= 5; ++type) {
-					if(b.bitboards[side][type] & cur_bitboard) {
-						if(side == 0) {
-							if(type == 0) std::cout << "P" << " ";
-							else if(type == 1) std::cout << "C" << " ";
-							else if(type == 2) std::cout << "H" << " ";
-							else if(type == 3) std::cout << "B" << " ";
-							else if(type == 4) std::cout << "Q" << " ";
-							else if(type == 5) std::cout << "K" << " ";
-						} else {
-							if(type == 0) std::cout << "O" << " ";
-							else if(type == 1) std::cout << "R" << " ";
-							else if(type == 2) std::cout << "L" << " ";
-							else if(type == 3) std::cout << "D" << " ";
-							else if(type == 4) std::cout << "W" << " ";
-							else if(type == 5) std::cout << "I" << " ";
-						}
-						empty = false;
-						break;
-					}
-				}
-			}
-			if(empty) std::cout << "_ ";
-		}
-		std::cout << std::endl;
-	}
-	std::cout << std::endl;
+	// for(int row = 7; row >= 0; row--) {
+	// 	for(int col = 0; col <= 7; col++) {
+	// 		bitboard cur_bitboard = (1ULL << ((row * 8) + col));
+	// 		bool empty = true;
+	// 		for(int side = 0; side <= 1; ++side) {
+	// 			for(int type = 0; type <= 5; ++type) {
+	// 				if(b.bitboards[side][type] & cur_bitboard) {
+	// 					if(side == 0) {
+	// 						if(type == 0) std::cout << "P" << " ";
+	// 						else if(type == 1) std::cout << "C" << " ";
+	// 						else if(type == 2) std::cout << "H" << " ";
+	// 						else if(type == 3) std::cout << "B" << " ";
+	// 						else if(type == 4) std::cout << "Q" << " ";
+	// 						else if(type == 5) std::cout << "K" << " ";
+	// 					} else {
+	// 						if(type == 0) std::cout << "O" << " ";
+	// 						else if(type == 1) std::cout << "R" << " ";
+	// 						else if(type == 2) std::cout << "L" << " ";
+	// 						else if(type == 3) std::cout << "D" << " ";
+	// 						else if(type == 4) std::cout << "W" << " ";
+	// 						else if(type == 5) std::cout << "I" << " ";
+	// 					}
+	// 					empty = false;
+	// 					break;
+	// 				}
+	// 			}
+	// 		}
+	// 		if(empty) std::cout << "_ ";
+	// 	}
+	// 	std::cout << std::endl;
+	// }
+	// std::cout << std::endl;
 
-	return to_string(from / 8) + " " + to_string(from % 8) + " " + to_string(to / 8) + " " + to_string(to % 8) + " " + types[type];
+	string returnBoard = to_string(from / 8) + " " + to_string(from % 8) + " " + to_string(to / 8) + " " + to_string(to % 8) + " " + types[type];
+
+	return returnBoard;
 }
 
 int main () {

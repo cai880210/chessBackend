@@ -1,5 +1,6 @@
 var addon = require('./build/Release/rileyChess.node')
 const express = require('express');
+const ws = require('ws');
 var bodyParser = require('body-parser')
 
 const app = express();
@@ -29,10 +30,13 @@ var port = process.env.PORT;
 if (port == null || port == "") {
   port = 8000;
 }
-app.listen(port, () => {  console.log('We are live on ' + port);})  ;
+const server = app.listen(port, () => {
+  console.log('We are live on ' + port);
+});
 
 app.post('/getMove', function (req, res) {
     var boardRepresentation = req.body['board'];
+    console.log('getting move');
     res.header("Access-Control-Allow-Origin", "*"); 
     res.send({
         nextMove: addon.jsGetNextMove(boardRepresentation),
@@ -40,7 +44,27 @@ app.post('/getMove', function (req, res) {
     })
   })
 
-  app.get('/',function(req,res) {
+  app.get('/',function(req, res) {
     res.send('Making some changes LOL TESTING')
 });
+
+server.on('upgrade', (request, socket, head) => {
+  wsServer.handleUpgrade(request, socket, head, socket => {
+    wsServer.emit('connection', socket, request);
+  });
+});
+
+
+
+
+
+
+
+
+const wsServer = new ws.Server({ noServer: true });
+wsServer.on('connection', socket => {
+  socket.on('message', message => console.log(message, "hel123l"));
+});
+
+
 
