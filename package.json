@@ -10,6 +10,7 @@
     "express": "^4.17.1",
     "node-addon-api": "^3.1.0",
     "node-gyp": "^8.0.0",
+    "uuid": "^8.3.2",
     "ws": "^7.4.6"
   },
   "engines": {
