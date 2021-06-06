@@ -36,6 +36,7 @@ const server = app.listen(port, () => {
 });
 
 app.post('/getMove', function (req, res) {
+    console.log('getting moves!');
     var boardRepresentation = req.body['board'];
     res.header("Access-Control-Allow-Origin", "*"); 
     res.send({
@@ -74,7 +75,7 @@ const handleSocketMessage = (message, socket) => {
     roomLookup[socket] = roomNum;
     rooms[roomNum] = {
       'white': data.side === 'white' ?  socket : null,
-      'black': data.side === 'black' ?  socket : null,
+      'black': data.side === 'white' ?  null : socket,
       'sideToPlay': true
     }
     socketSend(socket, {
@@ -90,12 +91,20 @@ const handleSocketMessage = (message, socket) => {
     const roomNum = data.roomNum;
     if(roomNum in rooms) {
       roomLookup[socket] = roomNum;
-      rooms[roomNum]["black"] = socket; // change this later
-      const toSend = {
+      if(rooms[roomNum]["white"]) rooms[roomNum]["black"] = socket;
+      else rooms[roomNum]["white"] = socket;
+      socketSend(rooms[roomNum]["white"], {
         type: 'ready',
-      }
-      if(rooms[roomNum]["white"]) socketSend(rooms[roomNum]["white"], toSend);
-      if(rooms[roomNum]["black"]) socketSend(rooms[roomNum]["black"], toSend);
+        data: {
+          side: 'white'
+        }
+      });
+      socketSend(rooms[roomNum]["black"], {
+        type: 'ready',
+        data: {
+          side: 'black'
+        }
+      });
     } else {
       socketSend(socket, {
         type: 'noRoom',
@@ -116,11 +125,6 @@ const handleSocketMessage = (message, socket) => {
     else socketSend(rooms[roomNum]["white"], toSend) // black just made a move
     rooms[roomNum]['sideToPlay'] = !rooms[roomNum]['sideToPlay'];
   }
-
-    
-
-
-
 }
 
 
