@@ -49,6 +49,11 @@ app.post('/getMove', function (req, res) {
 });
 
 
+const socketSend = (socket, data) => {
+  socket.send(JSON.stringify(data));
+}
+
+
 const wsServer = new ws.Server({ server });
 
 var nextRoom = 1000;
@@ -56,33 +61,63 @@ var rooms = {};
 var roomLookup = {};
 
 wsServer.on('connection', socket => {
-  // assign this socket to a unique id
-
   socket.on('message', message => handleSocketMessage(message, socket));
-
-
 });
 
 
 const handleSocketMessage = (message, socket) => {
   const {type, data} = JSON.parse(message);
-
+  
   if(type === 'create') {
     nextRoom += 1;
     const roomNum = nextRoom;
+    roomLookup[socket] = roomNum;
     rooms[roomNum] = {
-      'white': data.side === "white" ?  socket : null,
-      'black': data.side === "black" ?  socket : null,
+      'white': data.side === 'white' ?  socket : null,
+      'black': data.side === 'black' ?  socket : null,
+      'sideToPlay': true
     }
-
-    socket.send(JSON.stringify({
+    socketSend(socket, {
       type: 'created',
       data: {
         'roomNum': roomNum
       }
-    }))
+    })
 
   }
+
+  if(type === 'join') {
+    const roomNum = data.roomNum;
+    if(roomNum in rooms) {
+      roomLookup[socket] = roomNum;
+      rooms[roomNum]["black"] = socket; // change this later
+      const toSend = {
+        type: 'ready',
+      }
+      if(rooms[roomNum]["white"]) socketSend(rooms[roomNum]["white"], toSend);
+      if(rooms[roomNum]["black"]) socketSend(rooms[roomNum]["black"], toSend);
+    } else {
+      socketSend(socket, {
+        type: 'noRoom',
+      })
+    }
+  }
+
+  if(type === 'move') {
+    console.log('making move!', data.move, data.side);
+    const roomNum = roomLookup[socket];
+    const toSend = {
+      type: 'move',
+      data: {
+        move: data.move
+      }
+    }
+    if(rooms[roomNum]['sideToPlay']) socketSend(rooms[roomNum]["black"], toSend) // white just made a move
+    else socketSend(rooms[roomNum]["white"], toSend) // black just made a move
+    rooms[roomNum]['sideToPlay'] = !rooms[roomNum]['sideToPlay'];
+  }
+
+    
 
 
 
